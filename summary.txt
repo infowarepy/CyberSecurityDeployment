@@ -550,3 +550,27 @@ pdf download summary from url : {}
 
 
 
+09/11/2023 02:44:03
+
+Austria
+
+Raw_link : ['https://www.enisa.europa.eu/topics/national-cyber-security-strategies/ncss-map/AT_NCSS.pdf', 'https://www.bundeskanzleramt.gv.at/en/topics/cybersecurity/austrian-cybersecurity-strategy.html', 'https://www.bmf.gv.at/en/topics/digitalisation/Digitised-Austria/ICT-Security.html', 'https://www.trade.gov/country-commercial-guides/austria-cyber-security', 'https://connections-qj.org/system/files/19.1.03_cyber_policy_austria.pdf', 'https://dig.watch/resource/the-austrian-cybersecurity-strategy-oscs-2021', 'https://www.bmeia.gv.at/en/european-foreign-policy/security-policy', 'https://www.bmlv.gv.at/pdf_pool/publikationen/sicherheitsstrategie_engl.pdf', 'https://sherloc.unodc.org/cld/lessons-learned/aut/austrian_cyber_security_strategy.html?', 'https://www.tandfonline.com/doi/abs/10.1080/14751798.2020.1831234']
+
+filter_link : ['https://www.bmeia.gv.at/en/european-foreign-policy/security-policy', 'https://www.bmf.gv.at/en/topics/digitalisation/Digitised-Austria/ICT-Security.html', 'https://www.trade.gov/country-commercial-guides/austria-cyber-security', 'https://www.bmlv.gv.at/pdf_pool/publikationen/sicherheitsstrategie_engl.pdf', 'https://www.bundeskanzleramt.gv.at/en/topics/cybersecurity/austrian-cybersecurity-strategy.html', 'https://connections-qj.org/system/files/19.1.03_cyber_policy_austria.pdf']
+
+pdf download summary from url : {'https://www.bundeskanzleramt.gv.at/en/topics/cybersecurity/austrian-cybersecurity-strategy.html': ['cyberstrategie2021_en.pdf']}
+
+
+
+09/11/2023 03:15:48
+
+Belgium
+
+Raw_link : ['https://ccb.belgium.be/sites/default/files/CCB_Strategie%202.0_UK_WEB.pdf', 'https://www.trade.gov/country-commercial-guides/belgium-cybersecurity', 'https://therecord.media/belgium-approves-new-cyber-strategy-with-emphasis-on-essential-institutions', 'https://eucpn.org/document/belgian-policy-on-cybercrime', 'https://cybersecurity-centre.europa.eu/belgium-ncc_en', 'https://www.dataguidance.com/opinion/belgium-cybersecurity']
+
+filter_link : ['https://www.trade.gov/country-commercial-guides/belgium-cybersecurity', 'https://ccb.belgium.be/sites/default/files/CCB_Strategie%202.0_UK_WEB.pdf']
+
+pdf download summary from url : {'https://ccb.belgium.be/sites/default/files/CCB_Strategie%202.0_UK_WEB.pdf': ['CCB_Strategie%202.pdf']}
+
+
+

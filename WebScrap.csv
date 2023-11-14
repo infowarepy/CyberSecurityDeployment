@@ -2,6 +2,8 @@ Country,Keywords_1,Keywords_2,Keywords_3,Keywords_4
 Australia,.gov.au,,,
 Austria,.gv.at,.gov,.org,
 Belgium,.be,.gov,,
+Croatia,.gov,.eu,,
+Cyprus,.cy,.gov,.org,.eu
 Canada,.gc.ca,.gov,,
 Chile,.gob.cl,.gov,.itu,
 Colombia,.co,.gov,.dtic,
@@ -49,3 +51,6 @@ European Union,.eu,.gov,.org,
 Philippines,.ph,.gov,.org,
 Hong Kong,.hk,.gov,.org,
 Singapore,.sg,.gov,.org,
+Bulgaria,.bg,.gov,.eu,.org
+Malta,.mt,.gov,.eu,
+Romania,.ro,.gov,.eu,
