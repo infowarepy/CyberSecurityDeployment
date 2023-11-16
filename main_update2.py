@@ -116,6 +116,7 @@ def driver():
     with open(text_dir,'a') as document:
         df = pd.read_csv('test_country.csv')
         for cnt in range(len(df["Country_Name"])):
+            import datetime
             start_time=str(datetime.datetime.now()).split()[1]
             date=str(datetime.datetime.now()).split()[0]
             raw_links=[]
@@ -127,7 +128,7 @@ def driver():
             for j in search(user_response, tld="co.in", num=1, stop=10, pause=2):     ########
                 raw_links.append(j)    
 
-            print("raw links >>>>>>>>>>>>>>>>>>>>>>>>>>>>> ",raw_links)
+            # print("raw links >>>>>>>>>>>>>>>>>>>>>>>>>>>>> ",raw_links)
 
             filter1links,c_ex = filter1(raw_links,country_name)
 
@@ -143,7 +144,7 @@ def driver():
             #     links = unique_filter_links(filter3links)
             # except:
             links = filter3links
-            print("filter links >>>>>>>>>>>>>>>>>>>>>> ",links)
+            # print("filter links >>>>>>>>>>>>>>>>>>>>>> ",links)
 
             # raw link filter out using authentic site extension corresponding country.
 
@@ -204,6 +205,7 @@ def driver():
                 driver.get(link)
                 time.sleep(10)
                 current_link = driver.current_url
+                print("*************current link",link)
 
                 if 'pdf' in current_link.lower():
                     x = pdf_selector(link,path2,country_name)
@@ -274,6 +276,8 @@ def driver():
                 writer = csv.writer(f)
                 writer.writerow(log_data)
 
+
+driver()
 '''
 meta_data = [str(country_name), str(day), str(links), str(len(links)), 
 str(len(isExistsub_policy)), str(len(isExistsub_strategy)), str(len(isExistsub_guidlines))]
