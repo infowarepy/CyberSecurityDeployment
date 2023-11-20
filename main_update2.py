@@ -125,7 +125,7 @@ def driver():
             country_name = user_response
             user_response = "cyber security policy/strategy in "+user_response
             print("user_responce >>> ",user_response)
-            for j in search(user_response, tld="co.in", num=1, stop=10, pause=2):     ########
+            for j in search(user_response, tld="co.in", num=10, stop=10, pause=2):     ########
                 raw_links.append(j)    
 
             # print("raw links >>>>>>>>>>>>>>>>>>>>>>>>>>>>> ",raw_links)
@@ -199,6 +199,7 @@ def driver():
 
                 options = webdriver.ChromeOptions()
                 options.add_argument("--headless")
+                options.add_argument('--ignore-certificate-errors')
                 options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36")
                 driver = webdriver.Chrome(options=options,service= Service(ChromeDriverManager().install()))
                 driver.minimize_window()
@@ -277,7 +278,7 @@ def driver():
                 writer.writerow(log_data)
 
 
-driver()
+
 '''
 meta_data = [str(country_name), str(day), str(links), str(len(links)), 
 str(len(isExistsub_policy)), str(len(isExistsub_strategy)), str(len(isExistsub_guidlines))]

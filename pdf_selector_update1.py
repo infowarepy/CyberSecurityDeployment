@@ -12,6 +12,46 @@ from nltk.corpus import stopwords
 import datetime
 import logging
 import csv    #change 1
+import urllib
+import boto3
+from dotenv import load_dotenv
+
+load_dotenv()
+S3_BUCKET_NAME=os.getenv('S3_BUCKET_NAME')
+REGION=os.getenv('REGION')
+ACCESS_KEY_ID=os.getenv('ACCESS_KEY_ID')
+SECRET_ACCESS_KEY=os.getenv('SECRET_ACCESS_KEY')
+
+
+def save_to_s3(pdf_link,country):
+    try:
+        s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY_ID, aws_secret_access_key=SECRET_ACCESS_KEY)
+        objects=[a['Key'] for a in s3.list_objects(Bucket='infowarepython').get('Contents', [])]
+
+        country_folder=f'CyberSecurityPolicies/{country}/'
+
+        pdf_name = pdf_link.split("/")[-1]
+        headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36' } 
+        response = requests.get(pdf_link, headers = headers)
+        s3.put_object(Bucket='infowarepython',Key=f'{country_folder}{pdf_name}',Body=response.content)
+        print('File successfully saved to the bucket.')
+    
+    except Exception as e:
+        return e
+
+    data=f'{country},{pdf_name},{pdf_link}\n'
+    csv_data=''
+    pdf_log_file='CyberSecurityPolicies/pdf_log.csv'
+    if pdf_log_file not in objects:
+        csv_data=f'country,pdf_name,link\n'
+    
+    response = s3.get_object(Bucket=S3_BUCKET_NAME, Key=pdf_log_file)
+    csv_data = response['Body'].read().decode('utf-8')
+    csv_data += data
+    csv_data=csv_data.encode('utf-8')
+    s3.put_object(Bucket=S3_BUCKET_NAME, Key=pdf_log_file, Body=csv_data)
+
+    return pdf_name
 
 
 
@@ -240,22 +280,23 @@ def pdf_selector(pdf_link,folder,country_name):
             ### if all filtering conditions are satisfied then download this pdf.
             download_pdf_name=''
             if filter_1 and filter_2 and filter_3 and filter_4 and filter_5:
-                try:                   
-                    cat_name = category_selection1(pages_text1.strip())
-                    #DEBUG: Check cat_name element
-                    if len(pages_text1.strip()) == 0:
-                        cat_name = category_selection1((pages_text2.strip())[:100])
-                except:
-                    cat_name = category_selection2(sorted_word_count_in_pdf)
-                print("cat_name : ",cat_name)
-                cat_val = pdf_score(cat_name,sorted_word_count_in_pdf)
-                # if cat_val > 350:
-                download_pdf_name = download_pdf_and_save_folder(pdf_link,folder,cat_name,cat_val)
-                data=[country_name,download_pdf_name[0],download_pdf_name[1],pdf_link]
-                with open("pdf_log.csv", "a") as f:
-                    writer = csv.writer(f)
-                    writer.writerow(data)
-                download_pdf_name=download_pdf_name[0]
+                save_to_s3(pdf_link=pdf_link,country=country_name)
+                # try:                   
+                #     cat_name = category_selection1(pages_text1.strip())
+                #     #DEBUG: Check cat_name element
+                #     if len(pages_text1.strip()) == 0:
+                #         cat_name = category_selection1((pages_text2.strip())[:100])
+                # except:
+                #     cat_name = category_selection2(sorted_word_count_in_pdf)
+                # print("cat_name : ",cat_name)
+                # cat_val = pdf_score(cat_name,sorted_word_count_in_pdf)
+                # # if cat_val > 350:
+                # download_pdf_name = download_pdf_and_save_folder(pdf_link,folder,cat_name,cat_val)
+                # data=[country_name,download_pdf_name[0],download_pdf_name[1],pdf_link]
+                # with open("pdf_log.csv", "a") as f:
+                #     writer = csv.writer(f)
+                #     writer.writerow(data)
+                # download_pdf_name=download_pdf_name[0]
 
             return download_pdf_name
     except Exception as e:
@@ -264,4 +305,4 @@ def pdf_selector(pdf_link,folder,country_name):
         print("----pdf can not download----")
         return "No pdf downloaded"
 
-pdf_selector('https://cdn.onetrust.com/legal/OneTrustMasterTerms.pdf','chile','chile')
+# pdf_selector('https://cdn.onetrust.com/legal/OneTrustMasterTerms.pdf','chile','chile')

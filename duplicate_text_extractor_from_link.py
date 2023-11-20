@@ -66,6 +66,8 @@ def create_text_for_each_link(text_dir,sublinks_list,folder,country_name):
                     sub_pdf_list.append(x)
             else:
                 options = webdriver.ChromeOptions()
+                options.add_argument("--headless")
+                options.add_argument('--ignore-certificate-errors')
                 options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36")
                 driver = webdriver.Chrome(options=options,service= Service(ChromeDriverManager().install()))
                 driver.maximize_window()

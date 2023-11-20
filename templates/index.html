@@ -4,87 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cybersecurity Policy Scraper</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            height: 100vh;
-        }
-
-        #sidebar {
-            width: 200px;
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-        }
-
-        #content {
-            flex-grow: 1;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #countryList {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #countryList li {
-            margin-bottom: 5px;
-            padding: 5px;
-            border: 1px solid #ddd;
-            background-color: #f9f9f9;
-        }
-    </style>
+    <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
     <div id="sidebar">
-        <label for="countries">Enter countries:</label>
-        <input type="text" id="countries" placeholder="Country, Country, ...">
+        <form id="countryForm" action="/scrapping" method="post">
+            <label for="countries">Enter countries (line separated):</label>
+            <textarea id="countries" name="countries" placeholder="Country 1&#10;Country 2&#10;..." rows="4"></textarea>
+            <button type="submit">Start Scraping</button>
+        </form>
     </div>
-    <div id="content">
-        <button onclick="startScraping()">Start Scraping</button>
-        <ul id="countryList"></ul>
-    </div>
-
-    <script>
-        function startScraping() {
-            // Add your scraping logic here
-            // Fetch the entered countries from the input field
-            const countriesInput = document.getElementById('countries');
-            const countries = countriesInput.value.split(',').map(country => country.trim());
-
-            // Add the scraped countries to the list
-            const countryList = document.getElementById('countryList');
-            countries.forEach(country => {
-                const listItem = document.createElement('li');
-                listItem.textContent = country;
-                countryList.appendChild(listItem);
-            });
-
-            // Clear the input field
-            countriesInput.value = '';
-        }
-    </script>
 </body>
 </html>
