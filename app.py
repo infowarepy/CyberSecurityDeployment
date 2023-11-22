@@ -1,6 +1,7 @@
 from main_update2 import *
 from pdf_selector_update1 import *
 from flask import Flask, request, redirect, url_for, session, render_template
+from country_driver import *
 import json
 import pandas
 
@@ -15,8 +16,10 @@ def home():
 def scrapper():
     countries_input = request.form.get('countries')
     countries=[i.strip() for i in countries_input.split('\n')]
-    print(countries)
-
+    for country in countries:
+        scrap_country(country_name=country)
+        render_template('index.html',label='working')
+    return render_template('index.html',label='done')
 # @app.route('/upload', methods=['POST'])
 # def upload():
 #     countries_input = request.form.get('countries')

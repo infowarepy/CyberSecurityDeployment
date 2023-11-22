@@ -99,5 +99,3 @@ def scrap_country(country_name):
         pdf_for_link = pdf_name_list + pdf_from_sub_link
 
     return pdf_for_link
-
-scrap_country('Belgium')
