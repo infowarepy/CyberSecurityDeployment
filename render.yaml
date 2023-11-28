@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: CyberSecurityDeployment
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -b 0.0.0.0:$PORT your_flask_app:app

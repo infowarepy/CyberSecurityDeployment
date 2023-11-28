@@ -19,10 +19,10 @@ def recurse():
     print(countries)
     for country in countries:
         scrap_country(country_name=country)
-        # def scrapper():
-        #     scrap_country(country_name=country)
-        #     return render_template('index.html',label=f'{country} done')
-        # scrapper()
+        def scrapper():
+            scrap_country(country_name=country)
+            return render_template('index.html',label=f'{country} done')
+        scrapper()
     return render_template('index.html',label=f'{country} done')
          
 
