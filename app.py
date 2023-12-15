@@ -1,7 +1,8 @@
 from main_update2 import *
 from pdf_selector_update1 import *
 from country_driver import scrap_country
-from flask import Flask, request, redirect, url_for, session, render_template
+from cybersecurity_news_scrapping.app import *
+from flask import Flask, request, redirect, url_for, session, render_template, jsonify
 import json
 import pandas
 
@@ -26,6 +27,13 @@ def recurse():
     return render_template('index.html',label=f'{country} done')
          
 
+@app.route('/news',methods=['POST'])
+def news():
+    countries_input = request.form.get('countries')
+    countries=[i.strip() for i in countries_input.split('\n')]
+    json_data=log_data(cnt)
+    return jsonify(json_data)
+    
 # @app.route('/upload', methods=['POST'])
 # def upload():
 #     countries_input = request.form.get('countries')
