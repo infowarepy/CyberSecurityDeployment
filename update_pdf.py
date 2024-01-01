@@ -39,32 +39,33 @@ def compare_content(org_file, new_file):
     return False
 
 # Read CSV file
-csv_file_path = "pdf_log.csv"
-df = pd.read_csv(csv_file_path)
+if __name__ == "__main__":
+    csv_file_path = "pdf_log.csv"
+    df = pd.read_csv(csv_file_path)
 
-for index, row in df.iterrows():
-    country = row['country']
-    file_name = row['pdf_name']
-    path = row['path']
-    link = row['link']
-    
-    existing_file_path = path
-    existing_file_size = get_file_size(existing_file_path)
-    
-    if existing_file_size is not None:
-        download_file(link, "new_file_temp.pdf")
-        new_file_path = "new_file_temp.pdf"
-        new_file_size = get_file_size(new_file_path)
+    for index, row in df.iterrows():
+        country = row['country']
+        file_name = row['pdf_name']
+        path = row['path']
+        link = row['link']
         
-        if new_file_size is not None:
-            if existing_file_size == new_file_size and compare_content(existing_file_path,new_file_path):
-                print(f"No change for {country}: Sizes and content are the same.")
-            else:
-                update_file(existing_file_path, new_file_path)
+        existing_file_path = path
+        existing_file_size = get_file_size(existing_file_path)
         
-        try:
-            os.remove(new_file_path)
-        except Exception as e:
-            print(e)
-    else:
-        print(f"Could not compare file sizes for {country}.")
+        if existing_file_size is not None:
+            download_file(link, "new_file_temp.pdf")
+            new_file_path = "new_file_temp.pdf"
+            new_file_size = get_file_size(new_file_path)
+            
+            if new_file_size is not None:
+                if existing_file_size == new_file_size and compare_content(existing_file_path,new_file_path):
+                    print(f"No change for {country}: Sizes and content are the same.")
+                else:
+                    update_file(existing_file_path, new_file_path)
+            
+            try:
+                os.remove(new_file_path)
+            except Exception as e:
+                print(e)
+        else:
+            print(f"Could not compare file sizes for {country}.")

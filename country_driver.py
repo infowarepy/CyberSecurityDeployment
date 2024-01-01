@@ -17,6 +17,7 @@ from pdf_selector_update1 import *
 import pytz
 import csv
 from googlesearch import search
+import boto3
 
 def scrap_country(country_name):
     start_time=str(datetime.datetime.now()).split()[1]
@@ -97,5 +98,10 @@ def scrap_country(country_name):
             pdf_from_sub_link = create_text_for_each_link(text_dir,https_filtersublinks,path,country_name)
 
         pdf_for_link = pdf_name_list + pdf_from_sub_link
+    end_time=str(datetime.datetime.now()).split()[1]
+    total_runtime=calculate_time_taken(start_time,end_time)
+    # log_data = [str(country_name), date, start_time, end_time, total_runtime, str(links), str(len(links))]
+    log_data = f"{str(country_name)}, {date}, {start_time}, {end_time}, {total_runtime}, {str(links)}, {len(links)}\n"
 
-    return pdf_for_link
+    return log_data
+

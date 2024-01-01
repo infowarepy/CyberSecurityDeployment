@@ -2,32 +2,40 @@ from main_update2 import *
 from pdf_selector_update1 import *
 from country_driver import scrap_country
 from cybersecurity_news_scrapping.app import *
-from flask import Flask, request, redirect, url_for, session, render_template, jsonify
 import json
-import pandas
+import pandas as pd
+from dotenv import load_dotenv
+
+load_dotenv()
+S3_BUCKET_NAME=os.getenv('S3_BUCKET_NAME')
+REGION=os.getenv('REGION')
+ACCESS_KEY_ID=os.getenv('ACCESS_KEY_ID')
+SECRET_ACCESS_KEY=os.getenv('SECRET_ACCESS_KEY')
+
+s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY_ID, aws_secret_access_key=SECRET_ACCESS_KEY)
+objects=[a['Key'] for a in s3.list_objects(Bucket='infowarepython').get('Contents', [])]
 
 
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return render_template('index.html',label=[])
-
-@app.route('/scrapping',methods=['POST'])
-def recurse():
-    countries_input = request.form.get('countries')
-    countries=[i.strip() for i in countries_input.split('\n')]
-    print(countries)
+def scrapper():
+    df = pd.read_csv('test_country.csv')
+    countries=df["Country_Name"]
+    log_file='CyberSecurityPolicies/log_details.csv'
+    csv_data=''
+    if log_file not in objects:
+        csv_data=f'country_name,date,start_time,end_time,total_runtime,links,pdf_count,update\n'
+    response = s3.get_object(Bucket=S3_BUCKET_NAME, Key=log_file)
+    csv_data = response['Body'].read().decode('utf-8')
     for country in countries:
-        scrap_country(country_name=country)
-        def scrapper():
-            scrap_country(country_name=country)
-            return render_template('index.html',label=f'{country} done')
-        scrapper()
+        data=scrap_country(country_name=country)
+        csv_data += data
+        csv_data=csv_data.encode('utf-8')
+        s3.put_object(Bucket=S3_BUCKET_NAME, Key=log_file, Body=csv_data)
+        
+
     return render_template('index.html',label=f'{country} done')
          
 
-@app.route('/news',methods=['POST'])
+
 def news():
     countries_input = request.form.get('countries')
     countries=[i.strip() for i in countries_input.split('\n')]

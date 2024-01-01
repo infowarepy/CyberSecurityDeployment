@@ -19,8 +19,8 @@ from googlesearch import search
 # from fine_tuned import *
 # from text_to_pdf import *
 
-day = ''
-headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36' } 
+# day = ''
+# headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36' } 
 
 def extension_for_url(country):
     df = pd.read_csv("WebScrap.csv")

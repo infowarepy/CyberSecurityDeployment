@@ -5,7 +5,7 @@ import pandas as pd
 import PyPDF2
 import string
 import os
-import glob
+# import glob
 import nltk
 import time
 from nltk.corpus import stopwords
@@ -280,7 +280,7 @@ def pdf_selector(pdf_link,folder,country_name):
             ### if all filtering conditions are satisfied then download this pdf.
             download_pdf_name=''
             if filter_1 and filter_2 and filter_3 and filter_4 and filter_5:
-                save_to_s3(pdf_link=pdf_link,country=country_name)
+                download_pdf_name=save_to_s3(pdf_link=pdf_link,country=country_name)
                 # try:                   
                 #     cat_name = category_selection1(pages_text1.strip())
                 #     #DEBUG: Check cat_name element
